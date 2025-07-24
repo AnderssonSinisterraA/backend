@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 8080;
 
 // Rutas del backend
 const authRoutes = require('./routes/auth.routes');
