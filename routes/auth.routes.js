@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config(); // ✅ Importamos variables del .env
 const db = require('../db');
 const router = express.Router();
 
@@ -35,7 +36,9 @@ router.post('/login', (req, res) => {
       return res.status(401).json({ error: 'Contraseña incorrecta' });
     }
 
-    const token = jwt.sign({ id: user.id }, 'secreto123');
+    // ✅ Firmar token usando la clave secreta del archivo .env
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+
     res.json({
       token,
       user: {
